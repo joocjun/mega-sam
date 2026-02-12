@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.pyc
+*.egg-info/
+
+# Model checkpoints & weights
+*.pth
+*.ckpt
+Depth-Anything/checkpoints/
+
+# Data & outputs
+video_data/
+outputs/
+outputs_cvd/
+reconstructions/
+cache_flow/
+
+# Depth-Anything generated
+Depth-Anything/video_visualization/
+
+# UniDepth generated
+UniDepth/outputs/
+
+# Adapters (compiled/generated)
+adapters/

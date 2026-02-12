@@ -11,6 +11,8 @@ dependencies:
   - pytorch::pytorch=2.0.1
   - pytorch::torchvision==0.15.2
   - pip:
+    # Add this line to find pre-built wheels for torch 2.0.1 + cu118
+    - --find-links https://data.pyg.org/whl/torch-2.0.1+cu118.html
     - opencv-python-headless==4.9.0.80
     - tqdm==4.67.1
     - imageio==2.36.0

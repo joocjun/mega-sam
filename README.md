@@ -36,6 +36,8 @@ Anaconda.
     `wget https://anaconda.org/xformers/xformers/0.0.22.post7/download/linux-64/xformers-0.0.22.post7-py310_cu11.8.0_pyt2.0.1.tar.bz2`
 
     `conda install xformers-0.0.22.post7-py310_cu11.8.0_pyt2.0.1.tar.bz2`
+    use this on slurm
+    --> `pip3 install -U xformers --index-url https://download.pytorch.org/whl/cu126`
 
 3.  Compile the extensions for the camera tracking module: \
     `cd base; python setup.py install`
