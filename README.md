@@ -1,46 +1,42 @@
-# MegaSaM
-
-<!-- # 🚧 This repository is still not done and being uploaded, please stand by. 🚧  -->
+# MegaSaM (RLWRLD Fork)
 
 [Project Page](https://mega-sam.github.io/index.html) | [Paper](https://arxiv.org/abs/2412.04463)
 
-This code accompanies the paper
+RLWRLD fork of MegaSaM with patched CUDA kernels for PyTorch 2.x + CUDA 12.x,
+and an added [Viser-based 3D visualizer](docs/visualizer.md).
 
-**MegaSam: Accurate, Fast and Robust Casual Structure and Motion from Casual
-Dynamic Videos** \
-Zhengqi Li, Richard Tucker, Forrester Cole, Qianqian Wang, Linyi Jin, Vickie Ye,
-Angjoo Kanazawa, Aleksander Holynski, Noah Snavely
-
-*This is not an officially supported Google product.*
+Based on the paper: **MegaSaM: Accurate, Fast and Robust Structure and Motion
+from Casual Dynamic Videos** — Li et al., CVPR 2025.
 
 ## Clone
 
-Make sure to clone the repository with the submodules by using:
-`git clone --recursive git@github.com:mega-sam/mega-sam.git`
+```bash
+git clone --recursive git@github.com:RLWRLD/rlwrld_mega_sam.git
+```
 
-## Instructions for installing dependencies
+## Setup
 
 ### Python Environment
 
-The following codebase was successfully run with Python 3.10, CUDA11.8, and
-Pytorch2.0.1. We suggest installing the library in a virtual environment such as
-Anaconda.
+Tested with Python 3.10, CUDA 12.4, PyTorch 2.x on A100 GPUs.
 
-1.  To install main libraries, run: \
-    `conda env create -f environment.yml`
+1.  Create the conda environment:
+    ```bash
+    conda env create -f environment.yml
+    conda activate mega_sam
+    ```
 
-2.  To install xformers for UniDepth model, follow the instructions from
-    https://github.com/facebookresearch/xformers. If you encounter any
-    installation issue, we suggest installing it from a prebuilt file. For
-    example, for Python 3.10+Cuda11.8+Pytorch2.0.1, run: \
-    `wget https://anaconda.org/xformers/xformers/0.0.22.post7/download/linux-64/xformers-0.0.22.post7-py310_cu11.8.0_pyt2.0.1.tar.bz2`
+2.  Install xformers (for the UniDepth model):
+    ```bash
+    pip3 install -U xformers --index-url https://download.pytorch.org/whl/cu126
+    ```
 
-    `conda install xformers-0.0.22.post7-py310_cu11.8.0_pyt2.0.1.tar.bz2`
-    use this on slurm
-    --> `pip3 install -U xformers --index-url https://download.pytorch.org/whl/cu126`
+3.  Compile the CUDA extensions for camera tracking:
+    ```bash
+    cd base && python setup.py install && cd ..
+    ```
 
-3.  Compile the extensions for the camera tracking module: \
-    `cd base; python setup.py install`
+For Slurm-specific setup details, see [docs/slurm_setup.md](docs/slurm_setup.md).
 
 ### Downloading pretrained checkpoints
 
@@ -102,6 +98,19 @@ Anaconda.
 4.  Running consistent video depth optimization given estimated cameras (Please
     modify datapath in the script):
     `./cvd_opt/cvd_opt_demo.sh`
+
+### Visualizing Results
+
+After running the pipeline, inspect the output interactively in 3D:
+
+```bash
+pip install viser
+python tools/visualize_viser.py outputs_cvd/<your_output>.npz --port 8080
+```
+
+Then open `http://<hostname>:8080` in your browser. No GPU needed.
+
+See [docs/visualizer.md](docs/visualizer.md) for full usage details.
 
 ### Contact
 

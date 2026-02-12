@@ -23,3 +23,4 @@ UniDepth/outputs/
 
 # Adapters (compiled/generated)
 adapters/
+.claude
